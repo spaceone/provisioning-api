@@ -135,29 +135,29 @@ async def create_subscription(
     subscriber_name,
     subscriber_password,
     provisioning_admin_client: ProvisioningConsumerClient,
-) -> Callable[[list[RealmTopic]], AsyncGenerator[dict[str, Any], Any]]:
-    async def _create_subscription(realms_topics: list[RealmTopic]) -> AsyncGenerator[dict[str, Any], Any]:
+) -> AsyncGenerator[Callable[[list[RealmTopic]], Coroutine[Any, Any, str]], None]:
+    async def _create_subscription(realms_topics: list[RealmTopic]) -> str:
         await provisioning_admin_client.create_subscription(
             name=subscriber_name,
             password=subscriber_password,
             realms_topics=realms_topics,
             request_prefill=False,
         )
-        yield subscriber_name
+        return subscriber_name
 
-        await provisioning_admin_client.cancel_subscription(subscriber_name)
+    yield _create_subscription
 
-    return _create_subscription
+    await provisioning_admin_client.cancel_subscription(subscriber_name)
 
 
 @pytest.fixture
 async def real_subscription(create_subscription):
-    return await anext(create_subscription(USERS_REALMS_TOPICS))
+    return await create_subscription(USERS_REALMS_TOPICS)
 
 
 @pytest.fixture
 async def dummy_subscription(create_subscription):
-    return await anext(create_subscription(DUMMY_REALMS_TOPICS))
+    return await create_subscription(DUMMY_REALMS_TOPICS)
 
 
 @pytest.fixture(scope="session")
