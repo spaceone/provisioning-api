@@ -25,7 +25,6 @@ pytest-asyncio = "^0.24"
 pytest-cov = "^5.0"
 pytest-env = "^1.1.5"
 
-
 [tool.ruff]
 target-version = "py311"
 line-length = 120
@@ -43,9 +42,7 @@ testpaths = [
   "backends/tests/",
   "common/tests/",
   "consumer/tests/",
-  "dispatcher/tests/",
-  "prefill/tests/",
-  "rest-api/tests/",
+  "server/tests/",
   "tests/integration/",
 ]
 
