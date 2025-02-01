@@ -2,14 +2,16 @@
 # SPDX-FileCopyrightText: 2024 Univention GmbH
 
 services:
-  events-and-consumer-api:
-    image: gitregistry.knut.univention.de/univention/customers/dataport/upx/provisioning/provisioning-events-and-consumer-api:${IMAGE_TAG:-latest}
+  provisioning-api:
+    image: gitregistry.knut.univention.de/univention/customers/dataport/upx/provisioning/provisioning-api:${IMAGE_TAG:-latest}
     build:
       context: .
-      dockerfile: docker/events-and-consumer-api/Dockerfile
+      dockerfile: docker/server/Dockerfile
+      target: final
       # args:
       #   - UCS_BASE_IMAGE_TAG=latest
-    container_name: "events-and-consumer-api-dev"
+    command: "provisioning-api"
+    container_name: "provisioning-api"
     restart: "on-failure"
     environment:
       LOG_LEVEL: "DEBUG"
@@ -68,12 +70,14 @@ services:
 
 
   dispatcher:
-    image: gitregistry.knut.univention.de/univention/customers/dataport/upx/provisioning/provisioning-dispatcher:${IMAGE_TAG:-latest}
+    image: gitregistry.knut.univention.de/univention/customers/dataport/upx/provisioning/dispatcher:${IMAGE_TAG:-latest}
     build:
       context: .
-      dockerfile: docker/dispatcher/Dockerfile
+      dockerfile: docker/server/Dockerfile
+      target: final
       # args:
       #   - UCS_BASE_IMAGE_TAG=latest
+    command: "dispatcher"
     container_name: "provisioning-dispatcher"
     restart: "on-failure"
     environment:
@@ -83,17 +87,18 @@ services:
       NATS_USER: "dispatcher"
       NATS_PASSWORD: "dispatcherpass"
       NATS_MAX_RECONNECT_ATTEMPTS: 2
-      PROVISIONING_API_HOST: "events-and-consumer-api"
+      PROVISIONING_API_HOST: "provisioning-api"
       PROVISIONING_API_PORT: 7777
     depends_on:
       - "nats3"
-      - "events-and-consumer-api"
+      - "provisioning-api"
 
   udm-transformer:
-    image: "gitregistry.knut.univention.de/univention/customers/dataport/upx/provisioning/provisioning-udm-transformer:${IMAGE_TAG:-latest}"
+    image: "gitregistry.knut.univention.de/univention/customers/dataport/upx/provisioning/udm-transformer:${IMAGE_TAG:-latest}"
     build:
       context: .
-      dockerfile: docker/udm-transformer/Dockerfile
+      dockerfile: docker/server/Dockerfile
+      target: udm-transformer
       # args:
       #   - UCS_BASE_IMAGE_TAG=latest
     container_name: "provisioning-udm-transformer"
@@ -107,7 +112,7 @@ services:
       # LDAP_PUBLISHER_NAME: "ldif-producer"
       LDAP_PUBLISHER_NAME: "udm-listener"
 
-      PROVISIONING_API_HOST: "events-and-consumer-api"
+      PROVISIONING_API_HOST: "provisioning-api"
       PROVISIONING_API_PORT: 7777
       EVENTS_USERNAME_UDM: "udm"
       EVENTS_PASSWORD_UDM: "udmpass"
@@ -120,22 +125,24 @@ services:
       LDAP_BIND_PW: "univention"
     depends_on:
       - "nats1"
-      - "events-and-consumer-api"
+      - "provisioning-api"
 
   prefill:
-    image: "gitregistry.knut.univention.de/univention/customers/dataport/upx/provisioning/provisioning-prefill:${IMAGE_TAG:-latest}"
+    image: "gitregistry.knut.univention.de/univention/customers/dataport/upx/provisioning/prefill:${IMAGE_TAG:-latest}"
     build:
       context: .
-      dockerfile: docker/prefill/Dockerfile
+      dockerfile: docker/server/Dockerfile
+      target: final
       # args:
       #   - UCS_BASE_IMAGE_TAG=latest
+    command: "prefill"
     container_name: "provisioning-prefill"
     restart: "on-failure"
     environment:
       LOG_LEVEL: "DEBUG"
       NATS_HOST: "nats2"
       NATS_PORT: "4222"
-      PROVISIONING_API_HOST: "events-and-consumer-api"
+      PROVISIONING_API_HOST: "provisioning-api"
       PROVISIONING_API_PORT: 7777
       NATS_USER: "prefill"
       NATS_PASSWORD: "prefillpass"
@@ -149,7 +156,7 @@ services:
       MAX_PREFILL_ATTEMPTS: 5
     depends_on:
       - "nats2"
-      - "events-and-consumer-api"
+      - "provisioning-api"
 
   ldif-producer:
     platform: linux/amd64
@@ -274,7 +281,7 @@ services:
     environment:
       PROVISIONING_API_USERNAME: "example-client"
       PROVISIONING_API_PASSWORD: "password"
-      PROVISIONING_API_BASE_URL: "http://events-and-consumer-api:7777"
+      PROVISIONING_API_BASE_URL: "http://provisioning-api:7777"
       LOG_LEVEL: "DEBUG"
       MAX_ACKNOWLEDGEMENT_RETRIES: 3
     restart: "on-failure"
