@@ -7,7 +7,8 @@ import pytest
 from univention.admin.rest.client import UDM, UnprocessableEntity
 from univention.provisioning.consumer.api import ProvisioningConsumerClient
 from univention.provisioning.models.message import MessageProcessingStatus
-from univention.provisioning.testing.e2e_settings import E2ETestSettings
+
+from .e2e_settings import E2ETestSettings
 
 
 async def pop_all_messages(

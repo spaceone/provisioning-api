@@ -17,8 +17,9 @@ from univention.admin.rest.client import Object as UdmObject
 from univention.provisioning.consumer.api import ProvisioningConsumerClient, ProvisioningConsumerClientSettings
 from univention.provisioning.models.message import Body, PublisherName
 from univention.provisioning.models.subscription import RealmTopic
-from univention.provisioning.testing.e2e_settings import E2ETestSettings
-from univention.provisioning.testing.mock_data import (
+
+from .e2e_settings import E2ETestSettings
+from .mock_data import (
     DUMMY_REALMS_TOPICS,
     DUMMY_TOPIC,
     REALM,
@@ -27,7 +28,7 @@ from univention.provisioning.testing.mock_data import (
 )
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="session", autouse=True)
 def anyio_backend():
     return "asyncio"
 
@@ -55,7 +56,7 @@ def test_settings(pytestconfig) -> E2ETestSettings:
         "gaia_nubus",
     ), "invalid value for --environment"
 
-    with open("./tests/e2e/e2e_settings.json") as f:
+    with open("./e2e_settings.json") as f:
         json_settings = json.load(f)
 
     settings = E2ETestSettings(**json_settings["local"])

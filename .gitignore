@@ -4,7 +4,7 @@
 **/dist/
 .idea/
 
-tests/e2e/e2e_settings.json
+e2e_tests/e2e_settings.json
 
 # kyverno test files
 helm/**/.kyverno/kyverno-test.yaml

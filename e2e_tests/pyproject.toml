@@ -1,0 +1,29 @@
+[tool.poetry]
+name = "nubus-provisioning-e2e-tests"
+version = "0.1.0"
+description = "Univention Nubus - Provisioning e2e test code"
+authors = ["Univention GmbH <packages@univention.de>"]
+license = "AGPL-3.0-only"
+readme = "README.md"
+packages = [{ include = "tests", from = "./" }]
+
+[tool.poetry.dependencies]
+ldap3 = "^2.9.1"
+nats-py = "^2.9.0"
+nubus-provisioning-backends = {path = "../backends/"}
+nubus-provisioning-consumer = {path = "../consumer/"}
+pytest = "^8.3.3"
+pytest-asyncio = "^0.24"
+pytest-cov = "^5.0"
+pytest-timeout = ">=2.3.1"
+python = "^3.11"
+requests = "^2.23.3"
+udm-rest-api-client = "^0.0.2"
+
+[[tool.poetry.source]]
+name = "PyPI"
+priority = "primary"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

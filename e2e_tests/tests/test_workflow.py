@@ -10,7 +10,8 @@ import requests
 
 from univention.provisioning.models.constants import PublisherName
 from univention.provisioning.models.subscription import FillQueueStatus
-from univention.provisioning.testing.e2e_settings import E2ETestSettings
+
+from .e2e_settings import E2ETestSettings
 
 REALM = "udm"
 TOPIC = "groups/group"

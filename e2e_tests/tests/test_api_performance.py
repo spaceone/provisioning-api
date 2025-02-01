@@ -11,8 +11,9 @@ from univention.provisioning.backends.nats_mq import NatsKeys
 from univention.provisioning.consumer.api import ProvisioningConsumerClient
 from univention.provisioning.models.message import MessageProcessingStatus
 from univention.provisioning.models.subscription import FillQueueStatus, RealmTopic
-from univention.provisioning.testing.e2e_settings import E2ETestSettings
-from univention.provisioning.testing.mock_data import DUMMY_REALMS_TOPICS, USERS_REALMS_TOPICS
+
+from .e2e_settings import E2ETestSettings
+from .mock_data import DUMMY_REALMS_TOPICS, USERS_REALMS_TOPICS
 
 EXPECTED_AVG_DELAY = 50
 EXPECTED_MAX_DELAY = 150
