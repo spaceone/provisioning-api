@@ -3,7 +3,6 @@
 
 import asyncio
 import logging
-from importlib.metadata import version
 
 from daemoniker import Daemonizer
 
@@ -28,7 +27,6 @@ async def main(settings: DispatcherSettings):
 def run():
     settings = dispatcher_settings()
     setup_logging(settings.log_level)
-    logger.info("Starting Dispatcher service version %r.", version("nubus-provisioning-dispatcher"))
     asyncio.run(main(settings))
 
 

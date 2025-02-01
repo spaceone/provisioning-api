@@ -3,7 +3,6 @@
 
 import asyncio
 import logging
-from importlib.metadata import version
 
 from daemoniker import Daemonizer
 
@@ -47,7 +46,6 @@ def run():
     root_logger.handlers.clear()
     settings = udm_transformer_settings()
     setup_logging(settings.log_level)
-    logger.info("Starting UDM Transformer version %r.", version("nubus-provisioning-udm-transformer"))
     asyncio.run(main(settings))
 
 

@@ -3,7 +3,6 @@
 
 import asyncio
 import logging
-from importlib.metadata import version
 
 from daemoniker import Daemonizer
 
@@ -41,7 +40,6 @@ async def main(settings: PrefillSettings):
 def run():
     settings = prefill_settings()
     setup_logging(settings.log_level)
-    logger.info("Starting Prefill service version %r.", version("nubus-provisioning-prefill"))
     asyncio.run(main(settings))
 
 

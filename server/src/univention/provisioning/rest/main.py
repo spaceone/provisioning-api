@@ -1,10 +1,9 @@
 # SPDX-License-Identifier: AGPL-3.0-only
 # SPDX-FileCopyrightText: 2024 Univention GmbH
 
-
 import logging
-from importlib.metadata import version
 
+import uvicorn
 from asgi_correlation_id import CorrelationIdMiddleware
 from asgi_correlation_id.context import correlation_id
 from fastapi import FastAPI, HTTPException, Request, Response, status
@@ -22,17 +21,16 @@ from .messages import router as messages_api_router
 from .mq_adapter_nats import NatsMessageQueue
 from .subscriptions import router as subscriptions_api_router
 
-settings = app_settings()
-setup_logging(settings.log_level)
 logger = logging.getLogger(__name__)
 
 
+# TODO: Refactor this into functions for better testability
+settings = app_settings()
 app = FastAPI(
     debug=settings.debug,
     description="APIs for subscription and message handling.",
     root_path=settings.root_path,
     title="Provisioning REST APIs",
-    version=version("nubus-provisioning-rest-api"),
 )
 add_timing_middleware(app, record=logger.info)
 app.add_middleware(CorrelationIdMiddleware)
@@ -74,8 +72,7 @@ add_exception_handlers(app)
 
 @app.on_event("startup")
 async def startup_task():
-    logger.info("Started %s version %r.", app.title, version("nubus-provisioning-rest-api"))
-
+    settings = app_settings()
     async with NatsMessageQueue(settings) as mq:
         logger.info("Checking MQ connectivity...")
         await mq.create_queue(PREFILL_QUEUE_NAME, False)
@@ -87,3 +84,19 @@ async def validation_exception_handler(request: Request, exc: RequestValidationE
     logger.error("%s: %s", request, exc_str)
     content = {"status_code": status.HTTP_422_UNPROCESSABLE_ENTITY, "message": exc_str, "data": None}
     return JSONResponse(content=content, status_code=status.HTTP_422_UNPROCESSABLE_ENTITY)
+
+
+def run():
+    settings = app_settings()
+    assert settings
+    setup_logging(settings.log_level)
+    uvicorn.run(
+        app,
+        host="0.0.0.0",
+        port=7777,
+        log_config=None,
+    )
+
+
+if __name__ == "__main__":
+    run()
