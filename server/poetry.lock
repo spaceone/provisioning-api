@@ -402,21 +402,6 @@ dnspython = ">=2.0.0"
 idna = ">=2.0.0"
 
 [[package]]
-name = "faker"
-version = "35.2.0"
-description = "Faker is a Python package that generates fake data for you."
-optional = false
-python-versions = ">=3.8"
-files = [
-    {file = "Faker-35.2.0-py3-none-any.whl", hash = "sha256:609abe555761ff31b0e5e16f958696e9b65c9224a7ac612ac96bfc2b8f09fe35"},
-    {file = "faker-35.2.0.tar.gz", hash = "sha256:28c24061780f83b45d9cb15a72b8f143b09d276c9ff52eb557744b7a89e8ba19"},
-]
-
-[package.dependencies]
-python-dateutil = ">=2.4"
-typing-extensions = "*"
-
-[[package]]
 name = "fastapi"
 version = "0.115.8"
 description = "FastAPI framework, high performance, easy to learn, fast to code, ready for production"
@@ -736,23 +721,6 @@ MarkupSafe = ">=2.0"
 i18n = ["Babel (>=2.7)"]
 
 [[package]]
-name = "jsondiff"
-version = "2.2.1"
-description = "Diff JSON and JSON-like structures in Python"
-optional = false
-python-versions = ">=3.8"
-files = [
-    {file = "jsondiff-2.2.1-py3-none-any.whl", hash = "sha256:b1f0f7e2421881848b1d556d541ac01a91680cfcc14f51a9b62cdf4da0e56722"},
-    {file = "jsondiff-2.2.1.tar.gz", hash = "sha256:658d162c8a86ba86de26303cd86a7b37e1b2c1ec98b569a60e2ca6180545f7fe"},
-]
-
-[package.dependencies]
-pyyaml = "*"
-
-[package.extras]
-dev = ["build", "hypothesis", "pytest", "setuptools-scm"]
-
-[[package]]
 name = "markdown-it-py"
 version = "3.0.0"
 description = "Python port of markdown-it. Markdown parsing, done right!"
@@ -856,22 +824,6 @@ files = [
     {file = "mdurl-0.1.2-py3-none-any.whl", hash = "sha256:84008a41e51615a49fc9966191ff91509e3c40b939176e643fd50a5c2196b8f8"},
     {file = "mdurl-0.1.2.tar.gz", hash = "sha256:bb413d29f5eea38f31dd4754dd7377d4465116fb207585f97bf925588687c1ba"},
 ]
-
-[[package]]
-name = "mock"
-version = "5.1.0"
-description = "Rolling backport of unittest.mock for all Pythons"
-optional = false
-python-versions = ">=3.6"
-files = [
-    {file = "mock-5.1.0-py3-none-any.whl", hash = "sha256:18c694e5ae8a208cdb3d2c20a993ca1a7b0efa258c247a1e565150f477f83744"},
-    {file = "mock-5.1.0.tar.gz", hash = "sha256:5e96aad5ccda4718e0a229ed94b2024df75cc2d55575ba5762d31f5767b8767d"},
-]
-
-[package.extras]
-build = ["blurb", "twine", "wheel"]
-docs = ["sphinx"]
-test = ["pytest", "pytest-cov"]
 
 [[package]]
 name = "msgpack"
@@ -1080,7 +1032,7 @@ description = "Univention Nubus - Provisioning Backends"
 optional = false
 python-versions = ">=3.7,<4.0"
 files = []
-develop = true
+develop = false
 
 [package.dependencies]
 nats-py = ">=2.7.0"
@@ -1090,7 +1042,7 @@ pydantic-settings = ">=2.0.3"
 
 [package.source]
 type = "directory"
-url = "backends"
+url = "../backends"
 
 [[package]]
 name = "nubus-provisioning-common"
@@ -1099,7 +1051,7 @@ description = "Univention Nubus - Provisioning common code"
 optional = false
 python-versions = ">=3.7,<4.0"
 files = []
-develop = true
+develop = false
 
 [package.dependencies]
 asgi-correlation-id = ">=4.2.0"
@@ -1107,98 +1059,7 @@ pydantic = ">=2.5.2"
 
 [package.source]
 type = "directory"
-url = "consumer/common"
-
-[[package]]
-name = "nubus-provisioning-consumer"
-version = "0.1.0"
-description = "Univention Nubus - Provisioning Consumer"
-optional = false
-python-versions = "^3.11"
-files = []
-develop = true
-
-[package.dependencies]
-aiohttp = "^3.10.9"
-jsondiff = "^2.2.1"
-pydantic = "^2.9.2"
-pydantic-settings = "^2.5.2"
-
-[package.source]
-type = "directory"
-url = "consumer"
-
-[[package]]
-name = "nubus-provisioning-consumer-example"
-version = "0.1.0"
-description = "Univention Nubus - Provisioning Consumer Example"
-optional = false
-python-versions = "^3.11"
-files = []
-develop = true
-
-[package.dependencies]
-aiohttp = "^3.10.9"
-jsondiff = "^2.2.1"
-nubus-provisioning-common = ">=0.1.0"
-nubus-provisioning-consumer = ">=0.1.0"
-pydantic = "^2.9.2"
-pydantic-settings = "^2.5.2"
-
-[package.source]
-type = "directory"
-url = "consumer_example"
-
-[[package]]
-name = "nubus-provisioning-listener"
-version = "0.1.0"
-description = "Nubus - Provisioning Listener (depricated in favor of LDIF Producer)"
-optional = false
-python-versions = "^3.11"
-files = []
-develop = true
-
-[package.dependencies]
-daemoniker = "^0.2.3"
-msgpack = "^1.1.0"
-nats-py = "^2.9.0"
-nubus-provisioning-backends = {path = "../backends"}
-nubus-provisioning-common = {path = "../consumer/common"}
-pydantic-settings = "^2.5.2"
-
-[package.source]
-type = "directory"
-url = "listener"
-
-[[package]]
-name = "nubus-provisioning-server"
-version = "0.1.0"
-description = "Univention Nubus - Provisioning Server inluding the Dispatcher, Prefill, REST API, and UDM Transformer"
-optional = false
-python-versions = "^3.11"
-files = []
-develop = true
-
-[package.dependencies]
-aiohttp = "^3.10.9"
-asgi-correlation-id = "^4.3.3"
-bcrypt = "4.2.0"
-cachetools = "^5.5.0"
-daemoniker = "^0.2.3"
-fastapi = {version = "^0.115.0", extras = ["standard"]}
-fastapi-utils = "^0.7.0"
-httptools = "^0.6.1"
-msgpack = "^1.1.0"
-nubus-provisioning-backends = {path = "../backends"}
-passlib = "^1.7.4"
-pydantic = "^2.9.2"
-pydantic-settings = "^2.5.2"
-typing-extensions = "^4.12.2"
-typing-inspect = "^0.9.0"
-
-[package.source]
-type = "directory"
-url = "server"
+url = "../consumer/common"
 
 [[package]]
 name = "nubus-provisioning-tests"
@@ -1207,7 +1068,7 @@ description = "Univention Nubus - Provisioning common test code"
 optional = false
 python-versions = "^3.11"
 files = []
-develop = true
+develop = false
 
 [package.dependencies]
 nats-py = ">=2.7.0"
@@ -1219,7 +1080,7 @@ pytest-timeout = ">=2.3.1"
 
 [package.source]
 type = "directory"
-url = "tests"
+url = "../tests"
 
 [[package]]
 name = "packaging"
@@ -1263,30 +1124,6 @@ files = [
 [package.extras]
 dev = ["pre-commit", "tox"]
 testing = ["pytest", "pytest-benchmark"]
-
-[[package]]
-name = "polyfactory"
-version = "2.17.0"
-description = "Mock data generation factories"
-optional = false
-python-versions = "<4.0,>=3.8"
-files = [
-    {file = "polyfactory-2.17.0-py3-none-any.whl", hash = "sha256:71b677c17bb7cebad9a5631b1aca7718280bdcedc1c25278253717882d1ac294"},
-    {file = "polyfactory-2.17.0.tar.gz", hash = "sha256:099d86f7c79c51a2caaf7c8598cc56e7b0a57c11b5918ddf699e82380735b6b7"},
-]
-
-[package.dependencies]
-faker = "*"
-typing-extensions = ">=4.6.0"
-
-[package.extras]
-attrs = ["attrs (>=22.2.0)"]
-beanie = ["beanie", "pydantic[email]"]
-full = ["attrs", "beanie", "msgspec", "odmantic", "pydantic", "sqlalchemy"]
-msgspec = ["msgspec"]
-odmantic = ["odmantic (<1.0.0)", "pydantic[email]"]
-pydantic = ["pydantic[email]"]
-sqlalchemy = ["sqlalchemy (>=1.4.29)"]
 
 [[package]]
 name = "propcache"
@@ -1630,23 +1467,6 @@ pytest = ">=4.6"
 testing = ["fields", "hunter", "process-tests", "pytest-xdist", "virtualenv"]
 
 [[package]]
-name = "pytest-env"
-version = "1.1.5"
-description = "pytest plugin that allows you to add environment variables."
-optional = false
-python-versions = ">=3.8"
-files = [
-    {file = "pytest_env-1.1.5-py3-none-any.whl", hash = "sha256:ce90cf8772878515c24b31cd97c7fa1f4481cd68d588419fd45f10ecaee6bc30"},
-    {file = "pytest_env-1.1.5.tar.gz", hash = "sha256:91209840aa0e43385073ac464a554ad2947cc2fd663a9debf88d03b01e0cc1cf"},
-]
-
-[package.dependencies]
-pytest = ">=8.3.3"
-
-[package.extras]
-testing = ["covdefaults (>=2.3)", "coverage (>=7.6.1)", "pytest-mock (>=3.14)"]
-
-[[package]]
 name = "pytest-timeout"
 version = "2.3.1"
 description = "pytest plugin to abort hanging tests"
@@ -1659,20 +1479,6 @@ files = [
 
 [package.dependencies]
 pytest = ">=7.0.0"
-
-[[package]]
-name = "python-dateutil"
-version = "2.9.0.post0"
-description = "Extensions to the standard Python datetime module"
-optional = false
-python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,>=2.7"
-files = [
-    {file = "python-dateutil-2.9.0.post0.tar.gz", hash = "sha256:37dd54208da7e1cd875388217d5e00ebd4179249f90fb72437e91a35459a0ad3"},
-    {file = "python_dateutil-2.9.0.post0-py2.py3-none-any.whl", hash = "sha256:a8b2bc7bffae282281c8140a97d3aa9c14da0b136dfe83f850eea9a5f7470427"},
-]
-
-[package.dependencies]
-six = ">=1.5"
 
 [[package]]
 name = "python-dotenv"
@@ -1804,17 +1610,6 @@ python-versions = ">=3.7"
 files = [
     {file = "shellingham-1.5.4-py2.py3-none-any.whl", hash = "sha256:7ecfff8f2fd72616f7481040475a65b2bf8af90a56c89140852d1120324e8686"},
     {file = "shellingham-1.5.4.tar.gz", hash = "sha256:8dbca0739d487e5bd35ab3ca4b36e11c4078f3a234bfce294b0a0291363404de"},
-]
-
-[[package]]
-name = "six"
-version = "1.17.0"
-description = "Python 2 and 3 compatibility utilities"
-optional = false
-python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,>=2.7"
-files = [
-    {file = "six-1.17.0-py2.py3-none-any.whl", hash = "sha256:4721f391ed90541fddacab5acf947aa0d3dc7d27b2e1e8eda2be8970586c3274"},
-    {file = "six-1.17.0.tar.gz", hash = "sha256:ff70335d468e7eb6ec65b95b99d3a2836546063f63acc5171de367e834932a81"},
 ]
 
 [[package]]
@@ -2224,4 +2019,4 @@ propcache = ">=0.2.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "cd961733fcceb840555d363f047453eeebdec3113f57ebb7e58cb3d2b7d534f0"
+content-hash = "106d8f8208e42931a94d276ec0aede4c9d51c402c4d7402ce5db2a828ff1faf9"

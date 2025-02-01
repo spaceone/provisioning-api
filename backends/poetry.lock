@@ -131,7 +131,7 @@ pydantic = ">=2.5.2"
 
 [package.source]
 type = "directory"
-url = "../common"
+url = "../consumer/common"
 
 [[package]]
 name = "pydantic"
@@ -357,4 +357,4 @@ testing = ["big-O", "flake8 (<5)", "jaraco.functools", "jaraco.itertools", "more
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.7,<4.0"
-content-hash = "5672043217ff83fce894fbfe7b252e46a80bd56d84b35500960919662c3cc6ea"
+content-hash = "43ed3c19ad414b12cf11e11b9f74cf1a307360fe46043083f5f8d30ba8a46394"
