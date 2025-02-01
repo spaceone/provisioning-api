@@ -8,7 +8,9 @@ readme = "README.md"
 packages = [{ include = "univention", from = "src" }]
 
 [tool.poetry.dependencies]
+# TODO: Ask Daniel why this is here
 # backends = "^1.6.6"
+# Not yet installable via pip
 # univention.admin.rest.module
 # univention.admin.uldap
 # univention.management.console
@@ -29,6 +31,11 @@ python = "^3.11"
 typing-extensions = "^4.12.2"
 typing-inspect = "^0.9.0"
 
+[tool.poetry.scripts]
+dispatcher = 'univention.provisioning.dispatcher.main:run'
+prefill = 'univention.provisioning.prefill.main:run'
+rest-api = 'univention.provisioning.rest.main:app'
+udm-transformer = 'univention.provisioning.udm_transformer.main:run'
 
 [tool.pytest.ini_options]
 addopts = [

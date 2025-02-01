@@ -25,8 +25,12 @@ async def main(settings: DispatcherSettings):
             await service.dispatch_events()
 
 
-if __name__ == "__main__":
-    dispatcher_settings = dispatcher_settings()
-    setup_logging(dispatcher_settings.log_level)
+def run():
+    settings = dispatcher_settings()
+    setup_logging(settings.log_level)
     logger.info("Starting Dispatcher service version %r.", version("nubus-provisioning-dispatcher"))
-    asyncio.run(main(dispatcher_settings))
+    asyncio.run(main(settings))
+
+
+if __name__ == "__main__":
+    run()

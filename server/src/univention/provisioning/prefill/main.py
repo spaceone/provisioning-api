@@ -38,8 +38,12 @@ async def main(settings: PrefillSettings):
             await service.handle_requests_to_prefill()
 
 
-if __name__ == "__main__":
-    prefill_settings = prefill_settings()
-    setup_logging(prefill_settings.log_level)
+def run():
+    settings = prefill_settings()
+    setup_logging(settings.log_level)
     logger.info("Starting Prefill service version %r.", version("nubus-provisioning-prefill"))
-    asyncio.run(main(prefill_settings))
+    asyncio.run(main(settings))
+
+
+if __name__ == "__main__":
+    run()

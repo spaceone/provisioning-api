@@ -41,11 +41,15 @@ async def main(settings: UDMTransformerSettings):
             ).listen_for_ldap_events()
 
 
-if __name__ == "__main__":
+def run():
     # UDM adds an unwanted handler to the root logger
     root_logger = logging.getLogger()
     root_logger.handlers.clear()
-    udm_transformer_settings = udm_transformer_settings()
-    setup_logging(udm_transformer_settings.log_level)
+    settings = udm_transformer_settings()
+    setup_logging(settings.log_level)
     logger.info("Starting UDM Transformer version %r.", version("nubus-provisioning-udm-transformer"))
-    asyncio.run(main(udm_transformer_settings))
+    asyncio.run(main(settings))
+
+
+if __name__ == "__main__":
+    run()
