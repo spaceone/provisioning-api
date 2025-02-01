@@ -8,16 +8,13 @@ readme = "README.md"
 packages = [{ include = "univention", from = "src" }]
 
 [tool.poetry.dependencies]
-##############
-# Python 3.7 #
-##############
 daemoniker = "^0.2.3"
-msgpack = "1.0.5"  # py311: "^1.1.0"
-nats-py = "<=2.7.0"  # py311: "^2.9.0" # newer versions use Literal from typing which is Python 3.8+
+msgpack = "^1.1.0"
+nats-py = "^2.9.0"
 nubus-provisioning-backends = {path = "../backends"}
-nubus-provisioning-common = {path = "../common"}
-pydantic-settings = "^2.0.3"  # py311: "^2.5.2"
-python = "^3.7"
+nubus-provisioning-common = {path = "../consumer/common"}
+pydantic-settings = "^2.5.2"
+python = "^3.11"
 # univention.listener
 
 [tool.poetry.group.dev.dependencies]

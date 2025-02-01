@@ -5,12 +5,14 @@ description = "Univention Nubus - Provisioning Consumer"
 authors = ["Univention GmbH <packages@univention.de>"]
 license = "AGPL-3.0-only"
 readme = "README.md"
-packages = [{ include = "univention", from = "src" }]
+packages = [
+  { include = "univention", from = "./src" },
+  { include = "univention", from = "./common/src" },
+]
 
 [tool.poetry.dependencies]
 aiohttp = "^3.10.9"
 jsondiff = "^2.2.1"
-nubus-provisioning-common = {path = "../common"}
 pydantic = "^2.9.2"
 pydantic-settings = "^2.5.2"
 python = "^3.11"

@@ -8,17 +8,13 @@ readme = "README.md"
 package-mode = false
 
 [tool.poetry.dependencies]
-python = "^3.11"
 nubus-provisioning-backends = { path = "./backends/", develop = true }
-nubus-provisioning-common = { path = "./common/", develop = true }
+nubus-provisioning-common = { path = "./consumer/common/", develop = true }
 nubus-provisioning-consumer = { path = "./consumer/", develop = true }
 nubus-provisioning-consumer-example = { path = "./consumer_example/", develop = true }
-nubus-provisioning-dispatcher = { path = "./dispatcher/", develop = true }
-# Incompatible package versions because of the requirement for python 3.7 in the listener.
-# nubus-provisioning-listener = { path = "./listener/", develop = true }
-nubus-provisioning-prefill = { path = "./prefill/", develop = true }
-nubus-provisioning-rest-api = { path = "./rest-api/", develop = true }
-nubus-provisioning-udm-transformer = { path = "./udm-transformer/", develop = true }
+nubus-provisioning-listener = { path = "./listener/", develop = true }
+nubus-provisioning-server = { path = "./server/", develop = true }
+python = "^3.11"
 
 [tool.poetry.group.dev.dependencies]
 mock = ">=5.1.0"  # AsyncMock is Python 3.8+

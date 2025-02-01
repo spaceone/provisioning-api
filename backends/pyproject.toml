@@ -12,7 +12,7 @@ packages = [{ include = "univention", from = "src" }]
 # Python 3.7 - listener imports this #
 ######################################
 nats-py = ">=2.7.0"  # newer versions use Literal from typing which is Python 3.8+
-nubus-provisioning-common = {path = "../common"}
+nubus-provisioning-common = {path = "../consumer/common"}
 pydantic = ">=2.5.2"  # py311: "^2.9.2"
 pydantic-settings = ">=2.0.3"  # py311: "^2.5.2"
 python = ">=3.7,<4.0"

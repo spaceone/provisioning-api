@@ -22,7 +22,6 @@ pytest-timeout = ">=2.3.1"
 [tool.poetry.group.e2e-tests.dependencies]
 ldap3 = "^2.9.1"
 nubus-provisioning-consumer = {path = "../consumer"}
-nubus-provisioning-rest-api = {path = "../rest-api"}
 pytest-env = "^1.1.5"
 requests = "^2.23.3"
 udm-rest-api-client = "^0.0.2"
