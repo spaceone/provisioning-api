@@ -13,7 +13,7 @@ nats-py = "^2.9.0"
 nubus-provisioning-backends = {path = "../backends/"}
 nubus-provisioning-consumer = {path = "../consumer/"}
 pytest = "^8.3.3"
-pytest-asyncio = "^0.24"
+pytest-asyncio = "^0.25"
 pytest-cov = "^5.0"
 pytest-timeout = ">=2.3.1"
 python = "^3.11"
