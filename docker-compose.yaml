@@ -3,7 +3,7 @@
 
 services:
   provisioning-api:
-    image: gitregistry.knut.univention.de/univention/customers/dataport/upx/provisioning/provisioning-api:${IMAGE_TAG:-latest}
+    image: gitregistry.knut.univention.de/univention/customers/dataport/upx/provisioning/provisioning-server:${IMAGE_TAG:-latest}
     build:
       context: .
       dockerfile: docker/server/Dockerfile
@@ -70,7 +70,7 @@ services:
 
 
   dispatcher:
-    image: gitregistry.knut.univention.de/univention/customers/dataport/upx/provisioning/dispatcher:${IMAGE_TAG:-latest}
+    image: gitregistry.knut.univention.de/univention/customers/dataport/upx/provisioning/provisioning-server:${IMAGE_TAG:-latest}
     build:
       context: .
       dockerfile: docker/server/Dockerfile
@@ -128,7 +128,7 @@ services:
       - "provisioning-api"
 
   prefill:
-    image: "gitregistry.knut.univention.de/univention/customers/dataport/upx/provisioning/prefill:${IMAGE_TAG:-latest}"
+    image: "gitregistry.knut.univention.de/univention/customers/dataport/upx/provisioning/provisioning-server:${IMAGE_TAG:-latest}"
     build:
       context: .
       dockerfile: docker/server/Dockerfile
