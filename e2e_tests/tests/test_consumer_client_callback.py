@@ -3,13 +3,19 @@
 
 import pytest
 
-from univention.provisioning.consumer.api import MessageHandler, ProvisioningConsumerClient
+from univention.provisioning.consumer.api import MessageHandler, MessageHandlerSettings, ProvisioningConsumerClient
 from univention.provisioning.models.message import Message
 
 
+@pytest.fixture()
 async def test_no_callback_function_provided(provisioning_client: ProvisioningConsumerClient, dummy_subscription: str):
     with pytest.raises(ValueError, match="Callback functions can't be empty"):
-        await MessageHandler(provisioning_client, [], message_limit=1).run()
+        await MessageHandler(
+            client=provisioning_client,
+            callbacks=[],
+            settings=MessageHandlerSettings(max_acknowledgement_retries=5),
+            message_limit=1,
+        ).run()
 
 
 @pytest.mark.timeout(10)
@@ -26,7 +32,12 @@ async def test_get_one_message(
     async def test_callback(message: Message):
         result.append(message)
 
-    await MessageHandler(provisioning_client, [test_callback], message_limit=1).run()
+    await MessageHandler(
+        client=provisioning_client,
+        callbacks=[test_callback],
+        settings=MessageHandlerSettings(max_acknowledgement_retries=5),
+        message_limit=1,
+    ).run()
 
     assert len(result) == 1
 
@@ -63,6 +74,11 @@ async def test_get_multiple_messages(
     async def test_callback(message: Message):
         result.append(message)
 
-    await MessageHandler(provisioning_client, [test_callback], message_limit=3).run()
+    await MessageHandler(
+        client=provisioning_client,
+        callbacks=[test_callback],
+        settings=MessageHandlerSettings(max_acknowledgement_retries=5),
+        message_limit=3,
+    ).run()
 
     assert len(result) == 3
