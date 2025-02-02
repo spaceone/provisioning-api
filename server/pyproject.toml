@@ -68,12 +68,6 @@ PREFILL_PASSWORD = {value = "prefillpass", skip_if_set = true}
 PREFILL_USERNAME = {value = "prefill", skip_if_set = true}
 ROOT_PATH = {value = "/", skip_if_set = true}
 
-[tool.poetry.group.dev.dependencies]
-nubus-provisioning-tests = {path = "../tests/"}
-pytest = "^8.3.3"
-pytest-asyncio = "^0.24"
-pytest-cov = "^5.0"
-
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"

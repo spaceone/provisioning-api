@@ -1201,27 +1201,6 @@ type = "directory"
 url = "server"
 
 [[package]]
-name = "nubus-provisioning-tests"
-version = "0.1.0"
-description = "Univention Nubus - Provisioning common test code"
-optional = false
-python-versions = "^3.11"
-files = []
-develop = true
-
-[package.dependencies]
-nats-py = ">=2.7.0"
-nubus-provisioning-backends = {path = "../backends"}
-pytest = ">=7.4.4"
-pytest-asyncio = ">=0.21.2"
-pytest-cov = ">=4.1.0"
-pytest-timeout = ">=2.3.1"
-
-[package.source]
-type = "directory"
-url = "tests"
-
-[[package]]
 name = "packaging"
 version = "24.2"
 description = "Core utilities for Python packages"
@@ -1645,20 +1624,6 @@ pytest = ">=8.3.3"
 
 [package.extras]
 testing = ["covdefaults (>=2.3)", "coverage (>=7.6.1)", "pytest-mock (>=3.14)"]
-
-[[package]]
-name = "pytest-timeout"
-version = "2.3.1"
-description = "pytest plugin to abort hanging tests"
-optional = false
-python-versions = ">=3.7"
-files = [
-    {file = "pytest-timeout-2.3.1.tar.gz", hash = "sha256:12397729125c6ecbdaca01035b9e5239d4db97352320af155b3f5de1ba5165d9"},
-    {file = "pytest_timeout-2.3.1-py3-none-any.whl", hash = "sha256:68188cb703edfc6a18fad98dc25a3c61e9f24d644b0b70f33af545219fc7813e"},
-]
-
-[package.dependencies]
-pytest = ">=7.0.0"
 
 [[package]]
 name = "python-dateutil"
@@ -2224,4 +2189,4 @@ propcache = ">=0.2.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "cd961733fcceb840555d363f047453eeebdec3113f57ebb7e58cb3d2b7d534f0"
+content-hash = "8b6e02ed031aa67e7637232cac8ed33d1a84b964e729cc6d168a5953b2a9e955"
