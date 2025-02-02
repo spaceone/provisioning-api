@@ -49,8 +49,6 @@ COPY ./server/poetry.lock \
 COPY ./consumer /app/consumer
 COPY ./backends /app/backends
 
-# Activate system packages to get the debian installed udm library
-# RUN poetry config virtualenvs.options.system-site-packages true && \
 RUN poetry install --no-root --only main
 
 # copy source code
@@ -73,6 +71,7 @@ RUN apt-get --assume-yes --verbose-versions --no-install-recommends install \
 
 USER "$USER"
 
+# Activate the virtualenv created by poetry
 COPY ./docker/server/activate_venv.envsh /entrypoint.d/
 COPY --from=build --chown=${USER}:${USER} ${WORKDIR} ${WORKDIR}
 

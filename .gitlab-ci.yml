@@ -30,39 +30,31 @@ lint-pre-commit:
     - helm repo add nats https://nats-io.github.io/k8s/helm/charts/
 
 .build-matrix: &build-matrix
-  - IMAGE_NAME: "provisioning-events-and-consumer-api"
+  - IMAGE_NAME: "provisioning-server"
     KANIKO_ARGS: "--target final"
-    DOCKERFILE_PATH: "docker/events-and-consumer-api/Dockerfile"
-  - IMAGE_NAME: "provisioning-dispatcher"
-    KANIKO_ARGS: "--target final"
-    DOCKERFILE_PATH: "docker/dispatcher/Dockerfile"
+    DOCKERFILE_PATH: "docker/server/Dockerfile"
   - IMAGE_NAME: "provisioning-udm-transformer"
-    KANIKO_ARGS: "--target final"
-    DOCKERFILE_PATH: "docker/udm-transformer/Dockerfile"
+    KANIKO_ARGS: "--target udm-transformer"
+    DOCKERFILE_PATH: "docker/server/Dockerfile"
   - IMAGE_NAME: "provisioning-example-client"
     DOCKERFILE_PATH: "docker/example-client/Dockerfile"
-  - IMAGE_NAME: "provisioning-prefill"
-    KANIKO_ARGS: "--target final"
-    DOCKERFILE_PATH: "docker/prefill/Dockerfile"
   - IMAGE_NAME: "provisioning-udm-listener"
     KANIKO_ARGS: "--target final"
     DOCKERFILE_PATH: "docker/udm-listener/Dockerfile"
   - IMAGE_NAME: "testrunner"
     DOCKERFILE_PATH: "docker/test/Dockerfile"
+  - IMAGE_NAME: "provisioning-e2e-tests"
+    DOCKERFILE_PATH: "docker/e2e-test/Dockerfile"
 
 .publish-matrix: &publish-matrix
   - IMAGE_NAME:
-    - "provisioning-events-and-consumer-api"
-  - IMAGE_NAME:
-    - "provisioning-dispatcher"
+    - "provisioning-server"
   - IMAGE_NAME:
     - "provisioning-udm-listener"
   - IMAGE_NAME:
     - "provisioning-udm-transformer"
   - IMAGE_NAME:
     - "provisioning-example-client"
-  - IMAGE_NAME:
-    - "provisioning-prefill"
 
 container-build:
   parallel:
